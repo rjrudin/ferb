@@ -40,10 +40,12 @@
       "name": "map-films",
       "stepDefinitionName": "ferb",
       "stepDefinitionType": "CUSTOM",
-      "options" : {
-        "sourceQuery" : "cts.collectionQuery(['slappy'])",
-        "collections" : [ "film" ],
-        "genericHarmonize" : {
+      "options": {
+        "sourceQuery": "cts.collectionQuery(['slappy'])",
+        "collections": [
+          "film"
+        ],
+        "genericHarmonize": {
           "entity": {
             "type": "Film",
             "version": "1.0.0"
@@ -53,6 +55,31 @@
               "path": "language_id",
               "type": "language",
               "propertyName": "language"
+            }
+          ]
+        }
+      }
+    },
+    "3": {
+      "name": "map-rentals",
+      "stepDefinitionName": "ferb",
+      "stepDefinitionType": "CUSTOM",
+      "options": {
+        "sourceQuery": "cts.collectionQuery(['test-rental'])",
+        "collections": [
+          "rental"
+        ],
+        "genericHarmonize": {
+          "entity": {
+            "type": "Rental",
+            "version": "1.0.0"
+          },
+          "childQueries": [
+            {
+              "childCollection": "customer",
+              "childPropertyName": "customer_id",
+              "newPropertyName": "customer",
+              "childPropertyHasRangeIndex": true
             }
           ]
         }

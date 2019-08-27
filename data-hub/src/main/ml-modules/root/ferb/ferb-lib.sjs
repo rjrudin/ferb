@@ -1,9 +1,9 @@
 function addReferenceDataValues(instances, referenceDataMappings) {
-	const referenceDataQueries = buildReferenceDataQueries(instances, referenceDataMappings);
-	console.log(referenceDataQueries);
-	const referenceDataMap = buildReferenceDataMap(referenceDataQueries);
-	console.log(referenceDataMap);
-	applyReferenceDataMapToInstances(referenceDataMap, instances, referenceDataMappings);
+	if (referenceDataMappings != undefined) {
+		const referenceDataQueries = buildReferenceDataQueries(instances, referenceDataMappings);
+		const referenceDataMap = buildReferenceDataMap(referenceDataQueries);
+		applyReferenceDataMapToInstances(referenceDataMap, instances, referenceDataMappings);
+	}
 }
 
 // Returns an array of AND queries, one for each reference data property on each instance.

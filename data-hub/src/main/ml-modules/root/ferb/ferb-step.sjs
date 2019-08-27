@@ -41,9 +41,7 @@ function main(batch, options) {
 		contentArray.push(content);
 	}
 
-	if (options.genericHarmonize.referenceDataMappings != null) {
-		ferb.addReferenceDataValues(instances, options.genericHarmonize.referenceDataMappings);
-	}
+	ferb.addReferenceDataValues(instances, options.genericHarmonize.referenceDataMappings);
 
 	if (options.genericHarmonize.childQueries != null) {
 		for (childQuery of options.genericHarmonize.childQueries) {
