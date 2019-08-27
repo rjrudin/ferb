@@ -1,5 +1,34 @@
 plugins {
-  id "net.saliman.properties" version "1.5.1"
-  id "com.marklogic.ml-data-hub" version "5.0.2"
+	id "net.saliman.properties" version "1.5.1"
+	id "com.marklogic.ml-data-hub" version "5.0.2"
 }
 
+repositories {
+	jcenter()
+	maven { url "http://developer.marklogic.com/maven2/" }
+}
+
+configurations {
+	mlcp
+}
+
+dependencies {
+	mlcp "com.marklogic:mlcp:9.0.9"
+	mlcp files("mlcp-lib")
+}
+
+task ingestReferenceData(type: com.marklogic.gradle.task.MlcpTask) {
+	classpath = configurations.mlcp
+	command = "IMPORT"
+	port = Integer.parseInt(mlStagingPort)
+	input_file_path = "data/ReferenceData"
+	input_file_type = "delimited_text"
+	delimiter = "\t"
+	generate_uri = true
+	document_type = "json"
+	output_uri_replace = ".*data,''"
+	output_uri_suffix = ".json"
+	output_permissions = "rest-reader,read,rest-writer,update"
+	output_collections = "ReferenceData"
+	transform_module = "/ferb/reference-data-transform.sjs"
+}
