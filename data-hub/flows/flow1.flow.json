@@ -9,7 +9,6 @@
       "description": "This is the default ingestion step",
       "stepDefinitionName": "default-ingestion",
       "stepDefinitionType": "INGESTION",
-      "customHook": {},
       "fileLocations": {
         "inputFilePath": "data/data",
         "outputURIReplacement": ".*data,''",
@@ -31,7 +30,7 @@
         }
       },
       "customHook": {
-        "module": "/ferb/hook.sjs",
+        "module": "/sakila/raw-data-ingest-hook.sjs",
         "user": "admin",
         "runBefore": false
       }

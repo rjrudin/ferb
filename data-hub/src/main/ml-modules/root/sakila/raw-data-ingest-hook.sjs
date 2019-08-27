@@ -8,12 +8,14 @@ var stepNumber; // the index of the step within the flow being processed; the fi
 var step; // the step definition object
 
 for (const contentObject of content) {
-	const order = contentObject.value;
-	const instance = order.envelope.instance;
+	const uriTokens = contentObject.uri.split("/");
 
-	const tokens = contentObject.uri.split("/");
-	const recordType = tokens[tokens.length - 1].split(".")[0];
+	const nameTokens = uriTokens[uriTokens.length - 1].split(".");
+	const recordType = nameTokens[0];
 
-	contentObject.uri = contentObject.uri.replace("/raw/", "/" + recordType + "/");
+	const idTokens = nameTokens[1].split("-");
+	const id = idTokens[2];
+
+	contentObject.uri = "/" + recordType + "/" + id + ".json";
 	contentObject.context.collections = ["raw", recordType];
 }
