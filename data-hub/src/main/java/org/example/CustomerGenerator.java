@@ -27,14 +27,18 @@ import java.util.Random;
 public class CustomerGenerator {
 
 	public static void main(String[] args) throws IOException {
-		DatabaseClient client = DatabaseClientFactory.newClient("localhost", 8010,
-			new DatabaseClientFactory.DigestAuthContext("admin", "admin"));
+		String host = args[0];
+		String username = args[1];
+		String password = args[2];
+		int limit = Integer.parseInt(args[3]);
+
+		DatabaseClient client = DatabaseClientFactory.newClient(host, 8010,
+			new DatabaseClientFactory.DigestAuthContext(username, password));
 
 		File dir = new File("data-hub/build/raw");
 		dir.mkdirs();
 		File file = new File(dir, "customer.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-		final int limit = 1000000;
 
 		final int nextHighestCustomerId = Integer.parseInt(
 			client.newServerEval()

@@ -72,3 +72,9 @@ task ingestLargeCustomerFile(type: com.marklogic.gradle.task.MlcpTask) {
 	transform_param = "flow-name=flow1,step=1"
 	thread_count = 32
 }
+
+task createCustomers(type: JavaExec) {
+	classpath = sourceSets.main.runtimeClasspath
+	main = "org.example.CustomerGenerator"
+	args = [mlHost, mlUsername, mlPassword, customerLimit]
+}
