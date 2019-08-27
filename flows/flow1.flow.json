@@ -3,11 +3,40 @@
   "description": "This is the default flow containing all of the default steps",
   "batchSize": 100,
   "threadCount": 4,
-  "options": {
-    "sourceQuery": null
-  },
   "steps": {
     "1": {
+      "name": "ingestion-step",
+      "description": "This is the default ingestion step",
+      "stepDefinitionName": "default-ingestion",
+      "stepDefinitionType": "INGESTION",
+      "customHook": {},
+      "fileLocations": {
+        "inputFilePath": "data/data",
+        "outputURIReplacement": ".*data,''",
+        "inputFileType": "json"
+      },
+      "options": {
+        "outputFormat": "json",
+        "collections": [
+          "raw"
+        ],
+        "headers": {
+          "sources": [
+            {
+              "name": "flow1"
+            }
+          ],
+          "createdOn": "currentDateTime",
+          "createdBy": "currentUser"
+        }
+      },
+      "customHook": {
+        "module": "/ferb/hook.sjs",
+        "user": "admin",
+        "runBefore": false
+      }
+    },
+    "2": {
       "name": "asdf",
       "stepDefinitionName": "asdf",
       "stepDefinitionType": "CUSTOM"

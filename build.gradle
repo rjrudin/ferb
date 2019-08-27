@@ -32,3 +32,20 @@ task ingestReferenceData(type: com.marklogic.gradle.task.MlcpTask) {
 	output_collections = "ReferenceData"
 	transform_module = "/ferb/reference-data-transform.sjs"
 }
+
+task ingestRawData(type: com.marklogic.gradle.task.MlcpTask) {
+	classpath = configurations.mlcp
+	command = "IMPORT"
+	port = Integer.parseInt(mlStagingPort)
+	input_file_path = "data/raw"
+	input_file_type = "delimited_text"
+	delimiter = "\t"
+	generate_uri = true
+	document_type = "json"
+	output_uri_replace = ".*data,''"
+	output_uri_suffix = ".json"
+	output_permissions = "rest-reader,read,rest-writer,update"
+	output_collections = "raw"
+	transform_module = "/data-hub/5/transforms/mlcp-flow-transform.sjs"
+	transform_param = "flow-name=flow1,step=1"
+}
