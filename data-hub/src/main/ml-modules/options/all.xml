@@ -2,13 +2,11 @@
   <search-option>unfiltered</search-option>
   <page-length>10</page-length>
 
-  <!-- Limit all searches to this additional query
   <additional-query>
     <cts:collection-query xmlns:cts="http://marklogic.com/cts">
-      <cts:uri>data</cts:uri>
+      <cts:uri>Entity</cts:uri>
     </cts:collection-query>
   </additional-query>
- -->
 
   <!-- Full-text search options -->
   <term apply="term">
@@ -108,6 +106,15 @@
     <!-- optionally enable a prefix to see a specific subset of facets
     <collection facet="true" prefix="data/" />
     -->
+  </constraint>
+
+  <constraint name="Language">
+    <range type="xs:string" facet="true" collation="http://marklogic.com/collation/codepoint">
+      <element ns="" name="language"/>
+      <facet-option>limit=10</facet-option>
+      <facet-option>frequency-order</facet-option>
+      <facet-option>descending</facet-option>
+    </range>
   </constraint>
 
   <!-- Example facet based on the sample-data

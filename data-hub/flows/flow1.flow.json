@@ -43,7 +43,7 @@
       "options": {
         "sourceQuery": "cts.collectionQuery(['slappy'])",
         "collections": [
-          "film"
+          "Entity" ,"Film"
         ],
         "genericHarmonize": {
           "entity": {
@@ -67,7 +67,7 @@
       "options": {
         "sourceQuery": "cts.collectionQuery(['test-rental'])",
         "collections": [
-          "rental"
+          "Entity", "Rental"
         ],
         "genericHarmonize": {
           "entity": {
