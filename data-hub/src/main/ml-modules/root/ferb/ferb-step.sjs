@@ -1,4 +1,4 @@
-const commonLib = require('/lib/common.sjs');
+const ferb = require('/ferb/ferb-lib.sjs');
 const DataHub = require("/data-hub/5/datahub.sjs");
 const datahub = new DataHub();
 
@@ -41,10 +41,14 @@ function main(batch, options) {
 		contentArray.push(content);
 	}
 
-	commonLib.addReferenceDataValues(instances);
+	if (options.genericHarmonize.referenceDataMappings != null) {
+		ferb.addReferenceDataValues(instances, options.genericHarmonize.referenceDataMappings);
+	}
 
-	for (childQuery of options.genericHarmonize.childQueries) {
-		commonLib.addChildDocuments(instances, childQuery);
+	if (options.genericHarmonize.childQueries != null) {
+		for (childQuery of options.genericHarmonize.childQueries) {
+			ferb.addChildDocuments(instances, childQuery);
+		}
 	}
 
 	return contentArray;

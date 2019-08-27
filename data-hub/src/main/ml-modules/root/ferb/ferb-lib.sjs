@@ -1,24 +1,22 @@
-function addReferenceDataValues(instances) {
-	const referenceDataQueries = buildReferenceDataQueries(instances);
+function addReferenceDataValues(instances, referenceDataMappings) {
+	const referenceDataQueries = buildReferenceDataQueries(instances, referenceDataMappings);
+	console.log(referenceDataQueries);
 	const referenceDataMap = buildReferenceDataMap(referenceDataQueries);
-	applyReferenceDataMapToInstances(referenceDataMap, instances);
+	console.log(referenceDataMap);
+	applyReferenceDataMapToInstances(referenceDataMap, instances, referenceDataMappings);
 }
 
 // Returns an array of AND queries, one for each reference data property on each instance.
-function buildReferenceDataQueries(instances) {
+function buildReferenceDataQueries(instances, referenceDataMappings) {
 	const referenceDataQueries = [];
 	for (let instance of instances) {
-		for (let propertyName of Object.keys(instance)) {
-			if (propertyName.slice(propertyName.length - 3, propertyName.length) == '_CD') {
-				let codeName = propertyName.slice(0, propertyName.length - 3);
-				let referenceDataType = "RF_" + codeName;
-				if (REF_DATA_MAPPING[propertyName] != null) {
-					referenceDataType = REF_DATA_MAPPING[propertyName];
-				}
+		for (let mapping of referenceDataMappings) {
+			let path = mapping.path;
+			if (instance[path] != null) {
 				referenceDataQueries.push(cts.andQuery([
-					cts.jsonPropertyRangeQuery("ReferenceDataType", "=", referenceDataType),
-					cts.jsonPropertyRangeQuery("ReferenceDataCode", "=", instance[propertyName].trim())
-				]));
+					cts.jsonPropertyRangeQuery("ReferenceDataType", "=", mapping.type),
+					cts.jsonPropertyRangeQuery("ReferenceDataCode", "=", instance[path])
+				]))
 			}
 		}
 	}
@@ -58,21 +56,16 @@ function buildReferenceDataMap(referenceDataQueries) {
 
 // Given the JSON object returned by buildReferenceDataMap, this converts each reference data property from a code into
 // a value without any additional queries.
-function applyReferenceDataMapToInstances(referenceDataMap, instances) {
+function applyReferenceDataMapToInstances(referenceDataMap, instances, referenceDataMappings) {
 	for (let instance of instances) {
-		for (let propertyName of Object.keys(instance)) {
-			if (propertyName.slice(propertyName.length - 3, propertyName.length) == '_CD') {
-				let codeName = propertyName.slice(0, propertyName.length - 3);
-				let type = "RF_" + codeName;
-				if (REF_DATA_MAPPING[propertyName] != null) {
-					type = REF_DATA_MAPPING[propertyName];
-				}
-				let typeMap = referenceDataMap[type];
+		for (let mapping of referenceDataMappings) {
+			let path = mapping.path;
+			if (instance[path] != null) {
+				let typeMap = referenceDataMap[mapping.type];
 				if (typeMap != null) {
-					let code = instance[propertyName];
-					let value = typeMap[code];
+					let value = typeMap[instance[path]];
 					if (value != null) {
-						instance[codeName] = value;
+						instance[mapping.propertyName] = value;
 					}
 				}
 			}
@@ -148,3 +141,6 @@ function addChildDocuments(instances, config) {
 		}
 	}
 }
+
+exports.addChildDocuments = addChildDocuments;
+exports.addReferenceDataValues = addReferenceDataValues;

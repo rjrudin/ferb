@@ -37,9 +37,26 @@
       }
     },
     "2": {
-      "name": "asdf",
-      "stepDefinitionName": "asdf",
-      "stepDefinitionType": "CUSTOM"
+      "name": "map-films",
+      "stepDefinitionName": "ferb",
+      "stepDefinitionType": "CUSTOM",
+      "options" : {
+        "sourceQuery" : "cts.collectionQuery(['slappy'])",
+        "collections" : [ "film" ],
+        "genericHarmonize" : {
+          "entity": {
+            "type": "Film",
+            "version": "1.0.0"
+          },
+          "referenceDataMappings": [
+            {
+              "path": "language_id",
+              "type": "language",
+              "propertyName": "language"
+            }
+          ]
+        }
+      }
     }
   }
 }

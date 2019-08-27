@@ -1,14 +1,12 @@
 {
   "language" : "zxx",
-  "name" : "asdf",
+  "name" : "ferb",
   "description" : null,
   "type" : "CUSTOM",
   "version" : 1,
   "options" : {
     "acceptsBatch": true,
-    "outputFormat" : "json",
-    "sourceQuery" : "cts.collectionQuery([asdf])",
-    "collections" : [ "asdf" ]
+    "outputFormat" : "json"
   },
   "modulePath" : "/ferb/ferb-step.sjs"
 }
