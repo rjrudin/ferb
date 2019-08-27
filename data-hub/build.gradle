@@ -1,4 +1,5 @@
 plugins {
+	id "java"
 	id "net.saliman.properties" version "1.5.1"
 	id "com.marklogic.ml-data-hub" version "5.0.2"
 }
@@ -13,6 +14,8 @@ configurations {
 }
 
 dependencies {
+	compile "com.marklogic:marklogic-client-api:4.2.0"
+
 	mlcp "com.marklogic:mlcp:9.0.9"
 	mlcp files("mlcp-lib")
 }
@@ -31,7 +34,7 @@ task ingestReferenceData(type: com.marklogic.gradle.task.MlcpTask) {
 	output_permissions = "rest-reader,read,rest-writer,update"
 	output_collections = "ReferenceData"
 	transform_module = "/ferb/reference-data-transform.sjs"
-	thread_count = 16
+	thread_count = 32
 }
 
 task ingestRawData(type: com.marklogic.gradle.task.MlcpTask) {
@@ -49,5 +52,23 @@ task ingestRawData(type: com.marklogic.gradle.task.MlcpTask) {
 	output_collections = "raw"
 	transform_module = "/data-hub/5/transforms/mlcp-flow-transform.sjs"
 	transform_param = "flow-name=flow1,step=1"
-	thread_count = 16
+	thread_count = 32
+}
+
+task ingestLargeCustomerFile(type: com.marklogic.gradle.task.MlcpTask) {
+	classpath = configurations.mlcp
+	command = "IMPORT"
+	port = Integer.parseInt(mlStagingPort)
+	input_file_path = "build/raw"
+	input_file_type = "delimited_text"
+	delimiter = "\t"
+	generate_uri = true
+	document_type = "json"
+	output_uri_replace = ".*data,''"
+	output_uri_suffix = ".json"
+	output_permissions = "rest-reader,read,rest-writer,update"
+	output_collections = "raw"
+	transform_module = "/data-hub/5/transforms/mlcp-flow-transform.sjs"
+	transform_param = "flow-name=flow1,step=1"
+	thread_count = 32
 }
