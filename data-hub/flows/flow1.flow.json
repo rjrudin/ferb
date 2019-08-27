@@ -108,6 +108,70 @@
           ]
         }
       }
+    },
+    "5": {
+      "name": "map-stores",
+      "stepDefinitionName": "ferb",
+      "stepDefinitionType": "CUSTOM",
+      "options": {
+        "sourceQuery": "cts.collectionQuery(['store'])",
+        "collections": [
+          "Entity", "Store"
+        ],
+        "genericHarmonize": {
+          "entity": {
+            "type": "Store",
+            "version": "1.0.0"
+          },
+          "childQueries": [
+            {
+              "childCollection": "address",
+              "childPropertyName": "address_id",
+              "newPropertyName": "address",
+              "childPropertyHasRangeIndex": true,
+              "referenceDataMappings": [
+                {
+                  "path": "city_id",
+                  "type": "city",
+                  "propertyName": "city"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "6": {
+      "name": "map-staff",
+      "stepDefinitionName": "ferb",
+      "stepDefinitionType": "CUSTOM",
+      "options": {
+        "sourceQuery": "cts.collectionQuery(['staff'])",
+        "collections": [
+          "Entity", "Staff"
+        ],
+        "genericHarmonize": {
+          "entity": {
+            "type": "Staff",
+            "version": "1.0.0"
+          },
+          "childQueries": [
+            {
+              "childCollection": "address",
+              "childPropertyName": "address_id",
+              "newPropertyName": "address",
+              "childPropertyHasRangeIndex": true,
+              "referenceDataMappings": [
+                {
+                  "path": "city_id",
+                  "type": "city",
+                  "propertyName": "city"
+                }
+              ]
+            }
+          ]
+        }
+      }
     }
   }
 }
