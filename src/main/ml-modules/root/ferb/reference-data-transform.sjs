@@ -10,6 +10,9 @@ function transform(content, context) {
 	newDoc.ReferenceDataType = tokens[tokens.length - 1].split(".")[0];
 
 	content.value = newDoc;
+
+	context.collections.push(newDoc.ReferenceDataType);
+
 	return content;
 }
 
