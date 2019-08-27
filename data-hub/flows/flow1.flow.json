@@ -41,7 +41,7 @@
       "stepDefinitionName": "ferb",
       "stepDefinitionType": "CUSTOM",
       "options": {
-        "sourceQuery": "cts.collectionQuery(['slappy'])",
+        "sourceQuery": "cts.collectionQuery(['film'])",
         "collections": [
           "Entity" ,"Film"
         ],
@@ -65,7 +65,7 @@
       "stepDefinitionName": "ferb",
       "stepDefinitionType": "CUSTOM",
       "options": {
-        "sourceQuery": "cts.collectionQuery(['test-rental'])",
+        "sourceQuery": "cts.collectionQuery(['rental'])",
         "collections": [
           "Entity", "Rental"
         ],
@@ -73,13 +73,37 @@
           "entity": {
             "type": "Rental",
             "version": "1.0.0"
+          }
+        }
+      }
+    },
+    "4": {
+      "name": "map-customers",
+      "stepDefinitionName": "ferb",
+      "stepDefinitionType": "CUSTOM",
+      "options": {
+        "sourceQuery": "cts.collectionQuery(['customer'])",
+        "collections": [
+          "Entity", "Customer"
+        ],
+        "genericHarmonize": {
+          "entity": {
+            "type": "Customer",
+            "version": "1.0.0"
           },
           "childQueries": [
             {
-              "childCollection": "customer",
-              "childPropertyName": "customer_id",
-              "newPropertyName": "customer",
-              "childPropertyHasRangeIndex": true
+              "childCollection": "address",
+              "childPropertyName": "address_id",
+              "newPropertyName": "address",
+              "childPropertyHasRangeIndex": true,
+              "referenceDataMappings": [
+                {
+                  "path": "city_id",
+                  "type": "city",
+                  "propertyName": "city"
+                }
+              ]
             }
           ]
         }

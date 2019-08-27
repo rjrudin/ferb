@@ -32,6 +32,14 @@
       "collation": "",
       "range-value-positions": false,
       "invalid-values": "reject"
+    },
+    {
+      "scalar-type": "int",
+      "namespace-uri": "",
+      "localname": "address_id",
+      "collation": "",
+      "range-value-positions": false,
+      "invalid-values": "reject"
     }
   ]
 }

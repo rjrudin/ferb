@@ -81,13 +81,15 @@ function applyReferenceDataMapToInstances(referenceDataMap, instances, reference
  * - childPropertyName = the name of the property used to constrain the query for child documents
  * - newPropertyName = the name of the new property to add to each instance
  * - childPropertyHasRangeIndex = true if a range index exists for the child property
+ *
+ * So we get a bunch of child documents. Those can then have child queries that need to be run too.
+ * Customers wants to pull in address data.
  */
 function addChildDocuments(instances, config) {
 	const childCollection = config.childCollection;
 	const childPropertyName = config.childPropertyName;
 	const newPropertyName = config.newPropertyName;
 	const childPropertyHasRangeIndex = config.childPropertyHasRangeIndex;
-	const addChildReferenceDataValues = config.addChildReferenceDataValues != false;
 
 	// Build an array of values of the given child property, found across all instances
 	const childValues = [];
@@ -125,10 +127,7 @@ function addChildDocuments(instances, config) {
 		childArray.push(childInstance);
 	}
 
-	// Add reference data values to the child instances
-	if (addChildReferenceDataValues) {
-		addReferenceDataValues(childInstances);
-	}
+	addReferenceDataValues(childInstances, config.referenceDataMappings);
 
 	// And then associate parent instances with arrays of child instances
 	for (let instance of instances) {

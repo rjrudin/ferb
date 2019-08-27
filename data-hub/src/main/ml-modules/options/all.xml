@@ -84,28 +84,19 @@
         <score/>
       </sort-order>
     </state>
-    <state name="eyeColorAsc">
-      <sort-order
-    direction="ascending" type="xs:string" collation="http://marklogic.com/collation/codepoint">
-        <path-index>eyeColor</path-index>
-      </sort-order>
-    </state>
-    <state name="eyeColorDsc">
-      <sort-order
-    direction="descending" type="xs:string" collation="http://marklogic.com/collation/codepoint">
-        <path-index>eyeColor</path-index>
-      </sort-order>
-    </state>
   </operator>
-  <!-- Annotations (allowed pretty much anywhere) allow adding text or elements to feed custom components with options that would normally not validate) -->
-  <annotation>Delta options here</annotation>
 
-  <!-- Facet based on document collections, simple yet elegant -->
   <constraint name="Collection">
     <collection facet="true" />
-    <!-- optionally enable a prefix to see a specific subset of facets
-    <collection facet="true" prefix="data/" />
-    -->
+  </constraint>
+
+  <constraint name="City">
+    <range type="xs:string" facet="true" collation="http://marklogic.com/collation/codepoint">
+      <element ns="" name="city"/>
+      <facet-option>limit=10</facet-option>
+      <facet-option>frequency-order</facet-option>
+      <facet-option>descending</facet-option>
+    </range>
   </constraint>
 
   <constraint name="Language">
@@ -116,47 +107,6 @@
       <facet-option>descending</facet-option>
     </range>
   </constraint>
-
-  <!-- Example facet based on the sample-data
-  <constraint name="eyeColor">
-    <range type="xs:string" facet="true" collation="http://marklogic.com/collation/codepoint">
-      <facet-option>limit=5</facet-option>
-      <facet-option>frequency-order</facet-option>
-      <facet-option>descending</facet-option>
-      <path-index>eyeColor</path-index>
-    </range>
-  </constraint>
-
-  <constraint name="docFormat">
-    <range type="xs:string" facet="true" collation="http://marklogic.com/collation/codepoint">
-      <facet-option>limit=5</facet-option>
-      <facet-option>item-order</facet-option>
-      <facet-option>descending</facet-option>
-      <path-index>docFormat</path-index>
-    </range>
-  </constraint>
-
-  <constraint name="gender">
-    <range type="xs:string" facet="true" collation="http://marklogic.com/collation/codepoint">
-      <facet-option>limit=5</facet-option>
-      <facet-option>item-order</facet-option>
-      <facet-option>descending</facet-option>
-      <path-index>gender</path-index>
-    </range>
-  </constraint>
- -->
-
-  <!-- example facet constraint below -->
-  <!--
-  <constraint name="myconstraint">
-    <range type="xs:string" facet="true">
-      <facet-option>limit=5</facet-option>
-      <facet-option>frequency-order</facet-option>
-      <facet-option>descending</facet-option>
-      <element ns="" name="my-el"/>
-    </range>
-  </constraint>
-  -->
 
   <!-- example suggestion-source below -->
   <!--
