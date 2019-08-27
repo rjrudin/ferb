@@ -8,6 +8,7 @@
     "npm": ">=5.7.0"
   },
   "dependencies": {
+    "@marklogic-community/grove-react-visjs-graph": "^1.0.0-rc.2",
     "bootstrap": "^3.3.7",
     "bootstrap-material-design": "^0.5.10",
     "grove-core-react-components": "git+https://project.marklogic.com/repo/scm/nacw/grove-core-react-components.git#1.0.0-rc.1",

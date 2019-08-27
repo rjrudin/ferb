@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import queryString from 'query-string';
+import MyDetailTemplate from './MyDetailTemplate';
 
 import {
   SearchContainer,

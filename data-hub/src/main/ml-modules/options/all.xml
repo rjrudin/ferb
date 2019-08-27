@@ -108,6 +108,24 @@
     </range>
   </constraint>
 
+  <constraint name="Rating">
+    <range type="xs:string" facet="true" collation="http://marklogic.com/collation/codepoint">
+      <element ns="" name="rating"/>
+      <facet-option>limit=100</facet-option>
+      <facet-option>frequency-order</facet-option>
+      <facet-option>descending</facet-option>
+    </range>
+  </constraint>
+
+  <constraint name="RentalRate">
+    <range type="xs:decimal" facet="true">
+      <element ns="" name="rental_rate"/>
+      <bucket name="low" lt="2.0">Less than 2 bucks</bucket>
+      <bucket name="medium" lt="4.0" ge="2.0">2 to 4 bucks</bucket>
+      <bucket name="high" ge="4.0">More than 4 bucks</bucket>
+    </range>
+  </constraint>
+
   <!-- example suggestion-source below -->
   <!--
   <suggestion-source ref="myconstraint">
