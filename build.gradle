@@ -31,6 +31,7 @@ task ingestReferenceData(type: com.marklogic.gradle.task.MlcpTask) {
 	output_permissions = "rest-reader,read,rest-writer,update"
 	output_collections = "ReferenceData"
 	transform_module = "/ferb/reference-data-transform.sjs"
+	thread_count = 16
 }
 
 task ingestRawData(type: com.marklogic.gradle.task.MlcpTask) {
@@ -48,4 +49,5 @@ task ingestRawData(type: com.marklogic.gradle.task.MlcpTask) {
 	output_collections = "raw"
 	transform_module = "/data-hub/5/transforms/mlcp-flow-transform.sjs"
 	transform_param = "flow-name=flow1,step=1"
+	thread_count = 16
 }

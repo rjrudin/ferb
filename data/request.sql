@@ -1,1 +1,1 @@
-select * from film
+select * from store
