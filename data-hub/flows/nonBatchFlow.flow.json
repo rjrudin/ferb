@@ -18,6 +18,18 @@
             "type": "Customer",
             "version": "1.0.0"
           },
+          "referenceDataMappings": [
+            {
+              "path": "language_id",
+              "type": "language",
+              "propertyName": "language"
+            },
+            {
+              "path": "category_id",
+              "type": "category",
+              "propertyName": "category"
+            }
+          ],
           "childQueries": [
             {
               "childCollection": "address",

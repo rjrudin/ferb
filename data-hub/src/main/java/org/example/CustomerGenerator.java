@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -33,7 +34,8 @@ public class CustomerGenerator {
 
 		File customerFile = new File(dir, "customer.txt");
 		BufferedWriter customerWriter = new BufferedWriter(new FileWriter(customerFile));
-		customerWriter.write("customer_id,store_id,first_name,last_name,email,address_id,active,create_date,last_update,generated");
+		customerWriter.write("customer_id,store_id,first_name,last_name,email,address_id,active,create_date,last_update," +
+			"language_id,category_id,generated");
 
 		File paymentFile = new File(dir, "payment.txt");
 		BufferedWriter paymentWriter = new BufferedWriter(new FileWriter(paymentFile));
@@ -79,6 +81,8 @@ public class CustomerGenerator {
 				c.lastName = lastNames.get(random.nextInt(lastNameCount));
 				c.email = c.firstName + "." + c.lastName + "@sakila.org";
 				c.addressId = addressIds.get(random.nextInt(addressCount));
+				c.languageId = random.nextInt(6) + 1;
+				c.categoryId = random.nextInt(16) + 1;
 				customerWriter.write(c.toString());
 
 				int paymentCount = random.nextInt(100) + 1;
@@ -129,11 +133,13 @@ class Customer {
 	public String active = "1";
 	public String createDate;
 	public String lastUpdate;
+	public int languageId;
+	public int categoryId;
 
 	@Override
 	public String toString() {
-		return String.format("%d,%d,%s,%s,%s,%s,%s,%s,%s,true",
-			id, storeId, firstName, lastName, email, addressId, active, createDate, lastUpdate);
+		return String.format("%d,%d,%s,%s,%s,%s,%s,%s,%s,%d,%d,true",
+			id, storeId, firstName, lastName, email, addressId, active, createDate, lastUpdate, languageId, categoryId);
 	}
 }
 

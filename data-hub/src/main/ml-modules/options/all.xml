@@ -99,6 +99,15 @@
     </range>
   </constraint>
 
+  <constraint name="Category">
+    <range type="xs:string" facet="true" collation="http://marklogic.com/collation/codepoint">
+      <element ns="" name="category"/>
+      <facet-option>limit=10</facet-option>
+      <facet-option>frequency-order</facet-option>
+      <facet-option>descending</facet-option>
+    </range>
+  </constraint>
+
   <constraint name="Language">
     <range type="xs:string" facet="true" collation="http://marklogic.com/collation/codepoint">
       <element ns="" name="language"/>
@@ -108,6 +117,7 @@
     </range>
   </constraint>
 
+  <!--
   <constraint name="Rating">
     <range type="xs:string" facet="true" collation="http://marklogic.com/collation/codepoint">
       <element ns="" name="rating"/>
@@ -125,6 +135,7 @@
       <bucket name="high" ge="4.0">More than 4 bucks</bucket>
     </range>
   </constraint>
+  -->
 
   <!-- example suggestion-source below -->
   <!--
