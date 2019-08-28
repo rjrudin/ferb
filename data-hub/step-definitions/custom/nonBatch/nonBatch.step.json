@@ -1,0 +1,11 @@
+{
+  "language" : "zxx",
+  "name" : "nonBatch",
+  "description" : null,
+  "type" : "CUSTOM",
+  "version" : 1,
+  "options" : {
+    "outputFormat" : "json"
+  },
+  "modulePath" : "/custom-modules/custom/nonBatch/main.sjs"
+}

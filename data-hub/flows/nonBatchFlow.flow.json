@@ -1,0 +1,39 @@
+{
+  "name": "nonBatchFlow",
+  "batchSize": 100,
+  "threadCount": 4,
+  "steps": {
+    "1": {
+      "name": "map-customers",
+      "stepDefinitionName": "nonBatch",
+      "stepDefinitionType": "CUSTOM",
+      "options": {
+        "sourceQuery": "cts.collectionQuery(['customer'])",
+        "collections": [
+          "Entity", "Customer"
+        ],
+        "genericHarmonize": {
+          "entity": {
+            "type": "Customer",
+            "version": "1.0.0"
+          },
+          "childQueries": [
+            {
+              "childCollection": "address",
+              "childPropertyName": "address_id",
+              "newPropertyName": "address",
+              "childPropertyHasRangeIndex": true,
+              "referenceDataMappings": [
+                {
+                  "path": "city_id",
+                  "type": "city",
+                  "propertyName": "city"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}
