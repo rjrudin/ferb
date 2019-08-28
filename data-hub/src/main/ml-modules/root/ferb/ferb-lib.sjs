@@ -81,15 +81,13 @@ function applyReferenceDataMapToInstances(referenceDataMap, instances, reference
  * - childPropertyName = the name of the property used to constrain the query for child documents
  * - newPropertyName = the name of the new property to add to each instance
  * - childPropertyHasRangeIndex = true if a range index exists for the child property
- *
- * So we get a bunch of child documents. Those can then have child queries that need to be run too.
- * Customers wants to pull in address data.
  */
-function addChildDocuments(instances, config) {
-	const childCollection = config.childCollection;
-	const childPropertyName = config.childPropertyName;
-	const newPropertyName = config.newPropertyName;
-	const childPropertyHasRangeIndex = config.childPropertyHasRangeIndex;
+function addChildDocuments(instances, childQueryConfig) {
+	const childCollection = childQueryConfig.childCollection;
+	const childPropertyName = childQueryConfig.childPropertyName;
+	const newPropertyName = childQueryConfig.newPropertyName;
+	const childPropertyHasRangeIndex = childQueryConfig.childPropertyHasRangeIndex;
+	const referenceDataMappings = childQueryConfig.referenceDataMappings;
 
 	// Build an array of values of the given child property, found across all instances
 	const childValues = [];
@@ -127,7 +125,7 @@ function addChildDocuments(instances, config) {
 		childArray.push(childInstance);
 	}
 
-	addReferenceDataValues(childInstances, config.referenceDataMappings);
+	addReferenceDataValues(childInstances, referenceDataMappings);
 
 	// And then associate parent instances with arrays of child instances
 	for (let instance of instances) {
@@ -137,6 +135,13 @@ function addChildDocuments(instances, config) {
 			if (childInstances !== null && childInstances !== undefined) {
 				instance[newPropertyName] = childInstances;
 			}
+		}
+	}
+
+	// Process any child queries on the child instances
+	if (childQueryConfig.childQueries != null) {
+		for (childQuery of childQueryConfig.childQueries) {
+			addChildDocuments(childInstances, childQuery);
 		}
 	}
 }

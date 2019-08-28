@@ -35,7 +35,15 @@
               "childCollection": "payment",
               "childPropertyName": "customer_id",
               "newPropertyName": "payments",
-              "childPropertyHasRangeIndex": true
+              "childPropertyHasRangeIndex": true,
+              "childQueries": [
+                {
+                  "childCollection": "rental",
+                  "childPropertyName": "rental_id",
+                  "newPropertyName": "rental",
+                  "childPropertyHasRangeIndex": false
+                }
+              ]
             }
           ]
         }
