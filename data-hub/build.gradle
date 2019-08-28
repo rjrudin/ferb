@@ -64,7 +64,7 @@ task ingestRawData(type: com.marklogic.gradle.task.MlcpTask) {
 	thread_count = 32
 }
 
-task ingestLargeCustomerFile(type: com.marklogic.gradle.task.MlcpTask) {
+task ingestGeneratedRawData(type: com.marklogic.gradle.task.MlcpTask) {
 	classpath = configurations.mlcp
 	command = "IMPORT"
 	port = Integer.parseInt(mlStagingPort)
@@ -76,7 +76,7 @@ task ingestLargeCustomerFile(type: com.marklogic.gradle.task.MlcpTask) {
 	output_uri_replace = ".*data,''"
 	output_uri_suffix = ".json"
 	output_permissions = "rest-reader,read,rest-writer,update"
-	output_collections = "raw"
+	output_collections = "raw,generated"
 	transform_module = "/data-hub/5/transforms/mlcp-flow-transform.sjs"
 	transform_param = "flow-name=flow1,step=1"
 	thread_count = 32

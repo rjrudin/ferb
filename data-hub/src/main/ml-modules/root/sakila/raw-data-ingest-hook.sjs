@@ -17,13 +17,18 @@ for (const contentObject of content) {
 
 	const idTokens = nameTokens[1].split("-");
 
-	// Hack for our fake customers
 	let id = idTokens[2];
+
 	const firstKey = Object.keys(instance)[0];
-	if (firstKey == "customer_id") {
+	// Hack for our fake customers and payments
+	if (firstKey == "customer_id" || firstKey == "payment_id") {
 		id = instance[firstKey];
 	}
 
 	contentObject.uri = "/" + recordType + "/" + id + ".json";
-	contentObject.context.collections = ["raw", recordType];
+	if (contentObject.context.collections.includes("generated")) {
+		contentObject.context.collections = ["raw", "generated", recordType];
+	} else {
+		contentObject.context.collections = ["raw", recordType];
+	}
 }
