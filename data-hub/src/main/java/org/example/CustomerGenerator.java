@@ -35,10 +35,11 @@ public class CustomerGenerator {
 		DatabaseClient client = DatabaseClientFactory.newClient(host, 8010,
 			new DatabaseClientFactory.DigestAuthContext(username, password));
 
-		File dir = new File("data-hub/build/raw");
+		File dir = new File("build/raw");
 		dir.mkdirs();
 		File file = new File(dir, "customer.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		writer.write("customer_id,store_id,first_name,last_name,email,address_id,active,create_date,last_update");
 
 		final int nextHighestCustomerId = Integer.parseInt(
 			client.newServerEval()
@@ -58,9 +59,7 @@ public class CustomerGenerator {
 
 		try {
 			for (int i = 1; i <= limit; i++) {
-				if (i > 1) {
-					writer.write("\n");
-				}
+				writer.write("\n");
 				Customer c = new Customer();
 				c.id = nextHighestCustomerId + i;
 				c.storeId = (i % 2) + 1;
@@ -74,6 +73,8 @@ public class CustomerGenerator {
 			client.release();
 			writer.close();
 		}
+
+		System.out.println("Wrote file: " + file.getAbsolutePath());
 	}
 
 	private static List<String> getListOfValues(DatabaseClient client, String query) {

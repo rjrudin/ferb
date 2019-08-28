@@ -20,6 +20,15 @@ dependencies {
 	mlcp files("mlcp-lib")
 }
 
+jar {
+	manifest {
+		attributes "Main-Class": "org.example.CustomerGenerator"
+	}
+	from {
+		configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+}
+
 task ingestReferenceData(type: com.marklogic.gradle.task.MlcpTask) {
 	classpath = configurations.mlcp
 	command = "IMPORT"
@@ -61,7 +70,7 @@ task ingestLargeCustomerFile(type: com.marklogic.gradle.task.MlcpTask) {
 	port = Integer.parseInt(mlStagingPort)
 	input_file_path = "build/raw"
 	input_file_type = "delimited_text"
-	delimiter = "\t"
+	delimiter = ","
 	generate_uri = true
 	document_type = "json"
 	output_uri_replace = ".*data,''"
