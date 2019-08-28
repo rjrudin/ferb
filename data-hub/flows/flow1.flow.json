@@ -103,6 +103,12 @@
                   "propertyName": "city"
                 }
               ]
+            },
+            {
+              "childCollection": "payment",
+              "childPropertyName": "customer_id",
+              "newPropertyName": "payments",
+              "childPropertyHasRangeIndex": true
             }
           ]
         }
