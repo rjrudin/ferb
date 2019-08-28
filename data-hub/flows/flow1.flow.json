@@ -15,6 +15,7 @@
         "inputFileType": "json"
       },
       "options": {
+        "provenanceGranularityLevel": "off",
         "outputFormat": "json",
         "collections": [
           "raw"
