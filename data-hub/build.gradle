@@ -87,3 +87,18 @@ task createCustomers(type: JavaExec) {
 	main = "org.example.CustomerGenerator"
 	args = [mlHost, mlUsername, mlPassword, customerLimit]
 }
+
+task batchCustomers(type: com.marklogic.gradle.task.RunFlowTask) {
+	flowName = "flow1"
+	steps = ["4"]
+	threadCount = 32
+	batchSize = 50
+}
+
+task nonBatchCustomers(type: com.marklogic.gradle.task.RunFlowTask) {
+	flowName = "nonBatchFlow"
+	steps = ["1"]
+	threadCount = 32
+	batchSize = 50
+}
+
