@@ -60,7 +60,7 @@ task ingestRawData(type: com.marklogic.gradle.task.MlcpTask) {
 	output_permissions = "rest-reader,read,rest-writer,update"
 	output_collections = "raw"
 	transform_module = "/data-hub/5/transforms/mlcp-flow-transform.sjs"
-	transform_param = "flow-name=flow1,step=1"
+	transform_param = "flow-name=batchFlow,step=1"
 	thread_count = 32
 }
 
@@ -78,7 +78,7 @@ task ingestGeneratedRawData(type: com.marklogic.gradle.task.MlcpTask) {
 	output_permissions = "rest-reader,read,rest-writer,update"
 	output_collections = "raw,generated"
 	transform_module = "/data-hub/5/transforms/mlcp-flow-transform.sjs"
-	transform_param = "flow-name=flow1,step=1"
+	transform_param = "flow-name=batchFlow,step=1"
 	thread_count = 32
 }
 
@@ -89,8 +89,8 @@ task createCustomers(type: JavaExec) {
 }
 
 task batchCustomers(type: com.marklogic.gradle.task.RunFlowTask) {
-	flowName = "flow1"
-	steps = ["4"]
+	flowName = "batchFlow"
+	steps = ["2"]
 	threadCount = 32
 	batchSize = 50
 }

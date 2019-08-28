@@ -1,0 +1,99 @@
+{
+  "name": "batchFlow",
+  "description": "This is the default flow containing all of the default steps",
+  "batchSize": 100,
+  "threadCount": 4,
+  "steps": {
+    "1": {
+      "name": "ingestion-step",
+      "description": "This is the default ingestion step",
+      "stepDefinitionName": "default-ingestion",
+      "stepDefinitionType": "INGESTION",
+      "fileLocations": {
+        "inputFilePath": "data/data",
+        "outputURIReplacement": ".*data,''",
+        "inputFileType": "json"
+      },
+      "options": {
+        "provenanceGranularityLevel": "off",
+        "outputFormat": "json",
+        "collections": [
+          "raw"
+        ],
+        "headers": {
+          "sources": [
+            {
+              "name": "batchFlow"
+            }
+          ],
+          "createdOn": "currentDateTime",
+          "createdBy": "currentUser"
+        }
+      },
+      "customHook": {
+        "module": "/sakila/raw-data-ingest-hook.sjs",
+        "user": "admin",
+        "runBefore": false
+      }
+    },
+    "2": {
+      "name": "map-customers",
+      "stepDefinitionName": "ferb",
+      "stepDefinitionType": "CUSTOM",
+      "options": {
+        "provenanceGranularityLevel": "off",
+        "sourceQuery": "cts.collectionQuery(['customer'])",
+        "collections": [
+          "Entity", "Customer"
+        ],
+        "genericHarmonize": {
+          "entity": {
+            "type": "Customer",
+            "version": "1.0.0"
+          },
+          "referenceDataMappings": [
+            {
+              "path": "language_id",
+              "type": "language",
+              "propertyName": "language"
+            },
+            {
+              "path": "category_id",
+              "type": "category",
+              "propertyName": "category"
+            }
+          ],
+          "childQueries": [
+            {
+              "childCollection": "address",
+              "childPropertyName": "address_id",
+              "newPropertyName": "address",
+              "childPropertyHasRangeIndex": true,
+              "referenceDataMappings": [
+                {
+                  "path": "city_id",
+                  "type": "city",
+                  "propertyName": "city"
+                }
+              ]
+            },
+            {
+              "childCollection": "payment",
+              "childPropertyName": "customer_id",
+              "newPropertyName": "payments",
+              "childPropertyHasRangeIndex": true,
+              "childQueries": [
+                {
+                  "childCollection": "rental",
+                  "childPropertyName": "rental_id",
+                  "newPropertyName": "rental",
+                  "childPropertyHasRangeIndex": false
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}
