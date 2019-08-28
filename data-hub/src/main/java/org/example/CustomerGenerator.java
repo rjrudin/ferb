@@ -85,7 +85,7 @@ public class CustomerGenerator {
 				c.categoryId = random.nextInt(16) + 1;
 				customerWriter.write(c.toString());
 
-				int paymentCount = random.nextInt(100) + 1;
+				int paymentCount = random.nextInt(50) + 1;
 				for (int j = 1; j <= paymentCount; j++) {
 					paymentWriter.write("\n");
 					Payment p = new Payment();
