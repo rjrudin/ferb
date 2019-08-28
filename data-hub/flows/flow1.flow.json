@@ -81,6 +81,7 @@
       "stepDefinitionName": "ferb",
       "stepDefinitionType": "CUSTOM",
       "options": {
+        "provenanceGranularityLevel": "off",
         "sourceQuery": "cts.collectionQuery(['customer'])",
         "collections": [
           "Entity", "Customer"
