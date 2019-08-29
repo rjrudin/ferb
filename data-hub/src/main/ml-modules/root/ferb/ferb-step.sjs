@@ -27,8 +27,8 @@ function main(batch, options) {
 		let triples = datahub.flow.flowUtils.getTriples(doc) || [];
 		let headers = datahub.flow.flowUtils.getHeaders(doc) || {};
 
-		const entityType = options.genericHarmonize.entity.type;
-		const entityVersion = options.genericHarmonize.entity.version;
+		const entityType = options.ferbConfig.entity.type;
+		const entityVersion = options.ferbConfig.entity.version;
 		let wrappedInstance = {
 			"info": {
 				"title": entityType,
@@ -41,10 +41,10 @@ function main(batch, options) {
 		contentArray.push(content);
 	}
 
-	ferb.addReferenceDataValues(instances, options.genericHarmonize.referenceDataMappings);
+	ferb.addReferenceDataValues(instances, options.ferbConfig.referenceDataMappings);
 
-	if (options.genericHarmonize.childQueries != null) {
-		for (childQuery of options.genericHarmonize.childQueries) {
+	if (options.ferbConfig.childQueries != null) {
+		for (childQuery of options.ferbConfig.childQueries) {
 			ferb.addChildDocuments(instances, childQuery);
 		}
 	}
